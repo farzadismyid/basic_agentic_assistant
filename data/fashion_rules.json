@@ -1,0 +1,18 @@
+{
+  "blue": {
+    "matches": ["white", "beige", "grey", "brown"],
+    "style": "Blue pairs well with neutral tones for a clean and balanced look."
+  },
+  "black": {
+    "matches": ["white", "grey", "red", "beige"],
+    "style": "Black is versatile and works with both neutral and bold colors."
+  },
+  "white": {
+    "matches": ["black", "blue", "brown", "green"],
+    "style": "White is flexible and pairs well with most colors."
+  },
+  "brown": {
+    "matches": ["beige", "white", "blue", "green"],
+    "style": "Brown works well with earthy and soft tones."
+  }
+}
