@@ -1,10 +1,6 @@
-# src/main.py
 
 from src.utils.image_io import load_image
-from src.utils.color_analysis import extract_dominant_colors, get_palette_hex
-from src.utils.color_naming import simple_color_name
-from src.knowledge.rule_loader import load_rules
-from src.knowledge.rule_matcher import find_best_match
+from src.agents.visual_agent import VisualAgent
 
 
 def main():
@@ -13,20 +9,14 @@ def main():
     image_path = "data/sample_images/test.jpg"
     image = load_image(image_path)
 
-    colors = extract_dominant_colors(image, k=3)
-    palette = get_palette_hex(colors)
+    visual_agent = VisualAgent()
+    result = visual_agent.analyze(image)
 
-    print("Detected colors:", palette)
-
-    # convert first color to name
-    base_color = simple_color_name(palette[0])
-
-    rules = load_rules()
-    result = find_best_match([base_color], rules)
-
-    print("\nBase color:", result["base_color"])
-    print("Recommended matches:", result["matches"])
-    print("Style note:", result["style"])
+    print("\n--- Visual Agent Output ---")
+    print("Palette:", result["palette"])
+    print("Color confidence:", round(result["color_confidence"], 2))
+    print("Image quality:", round(result["image_quality"], 2))
+    print("Needs captioning:", result["needs_caption"])
 
 
 if __name__ == "__main__":
