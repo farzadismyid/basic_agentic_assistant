@@ -16,7 +16,9 @@ class KnowledgeAgent:
 
         # --- Decision variables ---
         request_complexity = self._estimate_request_complexity(user_text)
-        needs_external = self._decide_need_external(color_confidence, request_complexity)
+        needs_external = self._decide_need_external(
+            color_confidence, request_complexity
+        )
 
         if needs_external:
             result = find_best_match([base_color], self.rules)
