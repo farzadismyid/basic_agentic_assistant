@@ -3,6 +3,7 @@
 from src.utils.image_io import load_image
 from src.agents.visual_agent import VisualAgent
 from src.agents.knowledge_agent import KnowledgeAgent
+from src.agents.critic_agent import CriticAgent
 
 
 def main():
@@ -14,16 +15,31 @@ def main():
     image = load_image(image_path)
 
     visual_agent = VisualAgent()
+    knowledge_agent = KnowledgeAgent()
+    critic_agent = CriticAgent()
+
+    # Step 1: Visual
     visual_output = visual_agent.analyze(image)
 
-    knowledge_agent = KnowledgeAgent()
+    # Step 2: Knowledge
     knowledge_output = knowledge_agent.analyze(visual_output, user_text)
 
-    print("\n--- Visual Agent ---")
-    print(visual_output)
+    # Step 3: Critic
+    critic_output = critic_agent.evaluate(knowledge_output, user_text)
 
-    print("\n--- Knowledge Agent ---")
-    print(knowledge_output)
+    # --- Agentic Loop (1 iteration) ---
+    if critic_output["needs_revision"]:
+        print("\n[Critic] Revision triggered...")
+
+        # force external knowledge if first attempt was weak
+        visual_output["color_confidence"] = 0.3
+
+        knowledge_output = knowledge_agent.analyze(visual_output, user_text)
+        critic_output = critic_agent.evaluate(knowledge_output, user_text)
+
+    print("\n--- Final Output ---")
+    print("Knowledge:", knowledge_output)
+    print("Critic:", critic_output)
 
 
 if __name__ == "__main__":
