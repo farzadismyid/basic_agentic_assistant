@@ -1,5 +1,3 @@
-# src/agents/orchestrator.py
-
 from src.agents.visual_agent import VisualAgent
 from src.agents.knowledge_agent import KnowledgeAgent
 from src.agents.critic_agent import CriticAgent
