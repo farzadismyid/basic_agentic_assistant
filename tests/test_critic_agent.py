@@ -14,4 +14,3 @@ def test_critic_agent():
 
     assert "needs_revision" in result
     assert isinstance(result["needs_revision"], bool)
-    
