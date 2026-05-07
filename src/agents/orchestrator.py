@@ -21,10 +21,16 @@ class Orchestrator:
         visual_output = self.visual_agent.analyze(image)
         state["visual_output"] = visual_output
 
-        knowledge_output = self.knowledge_agent.analyze(visual_output, user_text)
+        knowledge_output = self.knowledge_agent.analyze(
+            visual_output,
+            user_text,
+        )
         state["knowledge_output"] = knowledge_output
 
-        critic_output = self.critic_agent.evaluate(knowledge_output, user_text)
+        critic_output = self.critic_agent.evaluate(
+            knowledge_output,
+            user_text,
+        )
         state["critic_output"] = critic_output
 
         while (
@@ -35,8 +41,14 @@ class Orchestrator:
 
             visual_output["color_confidence"] = 0.3
 
-            knowledge_output = self.knowledge_agent.analyze(visual_output, user_text)
-            critic_output = self.critic_agent.evaluate(knowledge_output, user_text)
+            knowledge_output = self.knowledge_agent.analyze(
+                visual_output,
+                user_text,
+            )
+            critic_output = self.critic_agent.evaluate(
+                knowledge_output,
+                user_text,
+            )
 
             state["knowledge_output"] = knowledge_output
             state["critic_output"] = critic_output
