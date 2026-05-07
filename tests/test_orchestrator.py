@@ -1,4 +1,3 @@
-
 from src.utils.image_io import load_image
 from src.agents.orchestrator import Orchestrator
 
