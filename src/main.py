@@ -1,9 +1,7 @@
 # src/main.py
 
 from src.utils.image_io import load_image
-from src.agents.visual_agent import VisualAgent
-from src.agents.knowledge_agent import KnowledgeAgent
-from src.agents.critic_agent import CriticAgent
+from src.agents.orchestrator import Orchestrator
 
 
 def main():
@@ -14,32 +12,14 @@ def main():
 
     image = load_image(image_path)
 
-    visual_agent = VisualAgent()
-    knowledge_agent = KnowledgeAgent()
-    critic_agent = CriticAgent()
+    orchestrator = Orchestrator()
+    result = orchestrator.run(image, user_text)
 
-    # Step 1: Visual
-    visual_output = visual_agent.analyze(image)
-
-    # Step 2: Knowledge
-    knowledge_output = knowledge_agent.analyze(visual_output, user_text)
-
-    # Step 3: Critic
-    critic_output = critic_agent.evaluate(knowledge_output, user_text)
-
-    # --- Agentic Loop (1 iteration) ---
-    if critic_output["needs_revision"]:
-        print("\n[Critic] Revision triggered...")
-
-        # force external knowledge if first attempt was weak
-        visual_output["color_confidence"] = 0.3
-
-        knowledge_output = knowledge_agent.analyze(visual_output, user_text)
-        critic_output = critic_agent.evaluate(knowledge_output, user_text)
-
-    print("\n--- Final Output ---")
-    print("Knowledge:", knowledge_output)
-    print("Critic:", critic_output)
+    print("\n--- Final Agentic State ---")
+    print("Visual:", result["visual_output"])
+    print("Knowledge:", result["knowledge_output"])
+    print("Critic:", result["critic_output"])
+    print("Revision count:", result["revision_count"])
 
 
 if __name__ == "__main__":
