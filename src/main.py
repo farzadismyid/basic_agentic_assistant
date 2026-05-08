@@ -1,11 +1,10 @@
-# src/main.py
-
 from src.utils.image_io import load_image
 from src.agents.orchestrator import Orchestrator
+from src.generation.response_builder import ResponseBuilder
 
 
 def main():
-    print("Agentic Fashion Color Assistant")
+    print("Agentic Fashion Color Assistant\n")
 
     image_path = "data/sample_images/test.jpg"
     user_text = "I want a smart casual outfit"
@@ -13,13 +12,15 @@ def main():
     image = load_image(image_path)
 
     orchestrator = Orchestrator()
-    result = orchestrator.run(image, user_text)
+    state = orchestrator.run(image, user_text)
 
-    print("\n--- Final Agentic State ---")
-    print("Visual:", result["visual_output"])
-    print("Knowledge:", result["knowledge_output"])
-    print("Critic:", result["critic_output"])
-    print("Revision count:", result["revision_count"])
+    builder = ResponseBuilder()
+    final_response = builder.build(state)
+
+    print(final_response)
+
+    print("\n--- Debug Info ---")
+    print("Revision count:", state["revision_count"])
 
 
 if __name__ == "__main__":
