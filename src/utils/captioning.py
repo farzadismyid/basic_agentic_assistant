@@ -2,8 +2,6 @@
 
 from transformers import AutoProcessor, AutoModelForCausalLM
 from PIL import Image
-import torch
-
 
 MODEL_ID = "microsoft/Florence-2-base"
 
