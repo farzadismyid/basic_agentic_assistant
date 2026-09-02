@@ -4,7 +4,6 @@ from src.agents.visual_agent import VisualAgent
 from src.agents.knowledge_agent import KnowledgeAgent
 from src.agents.critic_agent import CriticAgent
 
-
 class Orchestrator:
     def __init__(self):
         self.visual_agent = VisualAgent()
